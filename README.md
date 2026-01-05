@@ -7,7 +7,10 @@ Encryption is a reversible mathematical transformation that converts readable da
 Formally,
 
 $$
-C = E_K(P),\;\; P = D_K(C)
+C = E_K(P)
+$$
+$$
+P = D_K(C)
 $$
 
 Where,
