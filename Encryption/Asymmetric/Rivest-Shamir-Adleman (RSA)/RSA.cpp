@@ -1,4 +1,3 @@
-//read from .env file
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -71,7 +70,7 @@ long mod_inverse(long e, long phi)
     try
     {
         for (long x = 1; x < phi; x++)
-            if (((e % phi) * (x % phi)) % phi == 1)
+            if (e*x % phi == 1)
                 return x;
         throw runtime_error("Modular inverse does not exist");
     }
@@ -82,15 +81,21 @@ long mod_inverse(long e, long phi)
     return -1;
 }
 
+// Modular exponentiation: computes (base^exp) % mod efficiently
+// Uses binary exponentiation (exponentiation by squaring) to avoid overflow
+// and reduce computation time from O(exp) to O(log exp)
 long modexp(long base, long exp, long mod)
 {
     long result = 1;
-    base %= mod;
+    base %= mod;  // Reduce base to prevent overflow in initial multiplication
 
     while (exp > 0) {
+        // If the least significant bit of exp is 1, multiply result by current base
         if (exp & 1)
             result = (result * base) % mod;
+        // Square the base and reduce modulo to keep values manageable
         base = (base * base) % mod;
+        // Right shift exp by 1 bit (equivalent to dividing by 2)
         exp >>= 1;
     }
     return result;
