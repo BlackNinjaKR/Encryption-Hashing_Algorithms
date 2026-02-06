@@ -23,14 +23,6 @@ public:
         private_key = x;
     }
 
-    long long generate_private_key() //needs to generate a new random private key each time an object is created
-    {
-        random_device rd;
-        mt19937_64 gen(rd());
-        uniform_int_distribution<long long> dis(1, p - 2);
-        return dis(gen);
-    }
-
     long long power(long long base, long long exp, long long mod)
     {
         if (exp == 0)
