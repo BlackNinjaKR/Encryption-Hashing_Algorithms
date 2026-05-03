@@ -8,8 +8,7 @@ using namespace std;
 
 // const long Prime1 = 18121;
 // const long Prime2 = 37649;
-const long Prime1 = 239;
-const long Prime2 = 167;
+const long Prime1 = 239, Prime2 = 167;
 const long n = Prime1 * Prime2;
 const long Phi_n = (Prime1 - 1) * (Prime2 - 1);
 
@@ -161,6 +160,6 @@ int main()
     }
     cout << "Decrypted message numbers: ";
     for (char dec_msg : decrypted_messages)
-        cout << dec_msg << " ";
+        cout << dec_msg;
     cout << endl;
 };

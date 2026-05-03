@@ -8,19 +8,19 @@ class DiffieHellman {
 private:
     long long p; // prime number
     long long g; // primitive root modulo p
-    long long private_key; // private key of the user
+    long long key; // private key of the user
 
 public:
     DiffieHellman(long long prime, long long generator)
     {
         p = prime;
         g = generator;
-        private_key = 0;
+        key = 0;
     }
 
-    void set_private_key(long long x)
+    void set_key(long long x)
     {
-        private_key = x;
+        key = x;
     }
 
     long long power(long long base, long long exp, long long mod)
@@ -48,15 +48,15 @@ public:
         return result;
     }
 
-    long long compute_public_key()
+    long long compute_key()
     {
-        long long public_key = power(g, private_key, p);
+        long long public_key = power(g, key, p);
         return public_key;
     }
 
-    long long compute_shared_secret(long long other_public_key)
+    long long compute_shared_secret(long long intermediate_key)
     {
-        long long shared_secret = power(other_public_key, private_key, p);
+        long long shared_secret = power(intermediate_key, key, p);
         return shared_secret;
     }
 };
@@ -66,14 +66,13 @@ int main()
     long long prime = 10007; // A large prime number
     long long generator = 666; // A primitive root modulo prime
 
-    DiffieHellman alice(prime, generator);
-    DiffieHellman bob(prime, generator);
+    DiffieHellman alice(prime, generator), bob(prime, generator);
 
-    alice.set_private_key(53);
-    bob.set_private_key(312);
+    alice.set_key(53);
+    bob.set_key(312);
 
-    long long alice_public_key = alice.compute_public_key();
-    long long bob_public_key = bob.compute_public_key();
+    long long alice_public_key = alice.compute_key();
+    long long bob_public_key = bob.compute_key();
 
     cout << "Alice's Public Key: " << alice_public_key << endl;
     cout << "Bob's Public Key: " << bob_public_key << endl;
